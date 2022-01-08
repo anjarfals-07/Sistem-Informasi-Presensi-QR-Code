@@ -1,0 +1,1431 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import SessionLogin.UserID;
+import controller.KoneksiDB;
+import controller.ManajemenPiketGuru;
+import java.awt.Color;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import model.ModelPiket;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
+/**
+ *
+ * @author User
+ */
+public class FormPiketGuru extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form FormAbsenGuru1
+     */
+   //variabel menu popup
+     public String nip_guru, nama_guru,jabatan_guru,jam_masuk,jam_keluar;
+
+
+
+      private Connection conn = new KoneksiDB().getKoneksi();
+     //Tabel Absen Guru
+        DefaultTableModel tabelabsen;
+        
+        public void loadTblPiket() throws SQLException{
+        ManajemenPiketGuru matl = new ManajemenPiketGuru();
+        matl.loadDataPiket(tabelabsen);
+    }
+        
+           public void loadTblPiketAll() throws SQLException{
+        ManajemenPiketGuru matl = new ManajemenPiketGuru();
+        matl.loadAllPiket(tabelabsen);
+    }
+    public FormPiketGuru() throws SQLException {
+        initComponents();
+        
+         isicombokelas1();
+         isicombokelas2();
+         isicombokelas3();
+         isicombokelas4();
+         isicombokelas5();
+         isicombokelas6();
+         isicombokelas7();
+         isicombokelas8();
+         isicombotanggal();
+      //   txttgl.setText(new SimpleDateFormat("YYYY-MM-dd").format(new java.util.Date()));
+         
+          tabelabsen = new DefaultTableModel();
+        //menambahkan TableModel ke Tabel
+        tbpiket.setModel(tabelabsen);
+        
+        tabelabsen.addColumn("NO");
+        tabelabsen.addColumn("TANGGAL");
+        tabelabsen.addColumn("KODE");
+        tabelabsen.addColumn("NAMA");
+        tabelabsen.addColumn("1");
+        tabelabsen.addColumn("2");
+        tabelabsen.addColumn("3");
+        tabelabsen.addColumn("4");
+        tabelabsen.addColumn("5");
+         tabelabsen.addColumn("6");    
+        tabelabsen.addColumn("7");
+         tabelabsen.addColumn("8");
+         tabelabsen.addColumn("MASUK");
+         tabelabsen.addColumn("KELUAR");
+        absentengah();
+        headerabsen();
+ 
+       
+       txtkode.setEnabled(false);
+        txtanip.setEnabled(false);
+        txttgl.setEnabled(false);
+        lblnamaguru.setEnabled(false);
+        cb1.setEnabled(false);
+        cb2.setEnabled(false);
+        cb3.setEnabled(false);
+        cb4.setEnabled(false);
+        cb5.setEnabled(false);
+        cb6.setEnabled(false);
+        cb7.setEnabled(false);
+        cb8.setEnabled(false);
+        lbmasuk.setEnabled(false);
+        lbkeluar.setEnabled(false);
+        loadTblPiketAll();
+     
+        
+        String KD = UserID.getUserLogin();
+        txtidadm7.setText(KD);
+        String NM = UserID.getNamaLogin();
+        txtnamaadm7.setText(NM);
+    }
+    public void runReportDefault(String sourcefilename, HashMap hash) {
+        Connection con = KoneksiDB.getKoneksi();
+        try {
+            InputStream report;
+            report = getClass().getResourceAsStream(sourcefilename);
+           JasperPrint jprint = JasperFillManager.fillReport(report,hash, con);
+           JasperViewer viewer = new JasperViewer(jprint, false);
+            viewer.setFitPageZoomRatio();
+            viewer.setVisible(true);
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
+    }
+    //pemanggilan menu popup
+ public void itemTerpilih(){
+          ListGuru4 lp = new ListGuru4();
+          lp.piket=this;
+          txtanip.setText(nip_guru);   
+          lblnamaguru.setText(nama_guru);
+          lbmasuk.setText(jam_masuk);
+          lbkeluar.setText(jam_keluar);
+        //  lbjabatanguru.setText(jabatan_guru);  
+      }
+    
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        p_izin = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        txtnamaadm7 = new javax.swing.JLabel();
+        txtidadm7 = new javax.swing.JLabel();
+        txtkode = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        txtanip = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        btnAbsen_ubah = new javax.swing.JButton();
+        btnAbsen_hapus = new javax.swing.JButton();
+        btnAbsen_simpan = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        txtcariabsenguru = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbpiket = new javax.swing.JTable();
+        btnAbsen_tambah1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblnamaguru = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton14 = new javax.swing.JButton();
+        btnAbsen_hapus1 = new javax.swing.JButton();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        cb2 = new javax.swing.JComboBox<>();
+        cb1 = new javax.swing.JComboBox<>();
+        cb4 = new javax.swing.JComboBox<>();
+        cb6 = new javax.swing.JComboBox<>();
+        cb3 = new javax.swing.JComboBox<>();
+        cb7 = new javax.swing.JComboBox<>();
+        cb5 = new javax.swing.JComboBox<>();
+        cb8 = new javax.swing.JComboBox<>();
+        txttgl = new com.toedter.calendar.JDateChooser();
+        lbkeluar = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        lbmasuk = new javax.swing.JLabel();
+        cbtgl = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel98 = new javax.swing.JLabel();
+
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-attendance-25.png"))); // NOI18N
+
+        p_izin.setBackground(new java.awt.Color(255, 255, 255));
+        p_izin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtnamaadm7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtnamaadm7.setForeground(new java.awt.Color(255, 255, 255));
+        txtnamaadm7.setText("jLabel55");
+        jPanel7.add(txtnamaadm7, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, 140, 20));
+
+        txtidadm7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtidadm7.setForeground(new java.awt.Color(255, 255, 255));
+        txtidadm7.setText("jLabel23");
+        jPanel7.add(txtidadm7, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 80, 20));
+
+        txtkode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtkode.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtkode.setOpaque(false);
+        txtkode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtkodeActionPerformed(evt);
+            }
+        });
+        jPanel7.add(txtkode, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 50, 30));
+
+        jLabel33.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel33.setText("NAMA");
+        jPanel7.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, 30));
+
+        txtanip.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtanip.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtanip.setOpaque(false);
+        txtanip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtanipActionPerformed(evt);
+            }
+        });
+        jPanel7.add(txtanip, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 180, 30));
+
+        jLabel34.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel34.setText("8");
+        jPanel7.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, 20, 25));
+
+        jLabel32.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setText("6");
+        jPanel7.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 20, 25));
+
+        btnAbsen_ubah.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAbsen_ubah.setForeground(new java.awt.Color(255, 51, 0));
+        btnAbsen_ubah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-update-file-25.png"))); // NOI18N
+        btnAbsen_ubah.setText("Ubah");
+        btnAbsen_ubah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbsen_ubahActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnAbsen_ubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 100, 30));
+
+        btnAbsen_hapus.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAbsen_hapus.setForeground(new java.awt.Color(255, 51, 0));
+        btnAbsen_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-delete-trash-25.png"))); // NOI18N
+        btnAbsen_hapus.setText("Hapus");
+        btnAbsen_hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbsen_hapusActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnAbsen_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 100, 30));
+
+        btnAbsen_simpan.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAbsen_simpan.setForeground(new java.awt.Color(255, 51, 0));
+        btnAbsen_simpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-save-25.png"))); // NOI18N
+        btnAbsen_simpan.setText("Simpan");
+        btnAbsen_simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbsen_simpanActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnAbsen_simpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 110, 30));
+
+        jLabel28.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel28.setText("FORM PIKET GURU");
+        jPanel7.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 108, -1, -1));
+        jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 108, -1, -1));
+
+        jLabel36.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel36.setText("JAM KELUAR");
+        jPanel7.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 90, 30));
+
+        txtcariabsenguru.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        txtcariabsenguru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcariabsenguruActionPerformed(evt);
+            }
+        });
+        txtcariabsenguru.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtcariabsenguruKeyReleased(evt);
+            }
+        });
+        jPanel7.add(txtcariabsenguru, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 180, 30));
+
+        tbpiket.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        tbpiket.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "          TANGGAL", "                 NIP", "               NAMA", "              JABATAN", "        KETERANGAN", "         TAHUN      ", "FOTO"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbpiket.setGridColor(new java.awt.Color(0, 0, 0));
+        tbpiket.setSelectionBackground(new java.awt.Color(0, 204, 0));
+        tbpiket.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        tbpiket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbpiketMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tbpiket);
+
+        jPanel7.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 970, 170));
+
+        btnAbsen_tambah1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAbsen_tambah1.setForeground(new java.awt.Color(255, 51, 0));
+        btnAbsen_tambah1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-plus-25.png"))); // NOI18N
+        btnAbsen_tambah1.setText("Tambah");
+        btnAbsen_tambah1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbsen_tambah1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnAbsen_tambah1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 110, 30));
+
+        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Jam Mengajar"));
+        jPanel7.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 370, 180));
+
+        jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel7.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 350, 180));
+
+        lblnamaguru.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lblnamaguru.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel7.add(lblnamaguru, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 180, 30));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-more-25.png"))); // NOI18N
+        jPanel7.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, 30));
+
+        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-more-25.png"))); // NOI18N
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 40, 30));
+
+        btnAbsen_hapus1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAbsen_hapus1.setForeground(new java.awt.Color(255, 51, 0));
+        btnAbsen_hapus1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-cancel-25.png"))); // NOI18N
+        btnAbsen_hapus1.setText("Batal");
+        btnAbsen_hapus1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbsen_hapus1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnAbsen_hapus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 100, 30));
+
+        jLabel43.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setText("4");
+        jPanel7.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 200, 20, 23));
+
+        jLabel42.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setText("5");
+        jPanel7.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 20, 23));
+
+        jLabel41.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setText("2");
+        jPanel7.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 20, 23));
+
+        jLabel44.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel44.setText("3");
+        jPanel7.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 20, 23));
+
+        cb2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb2ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 140, 25));
+
+        cb1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb1ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 140, 25));
+
+        cb4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb4.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb4ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, 140, 25));
+
+        cb6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb6.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb6ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 140, 25));
+
+        cb3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb3ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 140, 25));
+
+        cb7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb7.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb7ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 140, 25));
+
+        cb5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb5ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb5, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 140, 25));
+
+        cb8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb8.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb8ItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(cb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, 140, 25));
+        jPanel7.add(txttgl, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, 30));
+
+        lbkeluar.setBackground(new java.awt.Color(255, 51, 51));
+        lbkeluar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbkeluar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbkeluar.setText("00:00:00");
+        lbkeluar.setOpaque(true);
+        jPanel7.add(lbkeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 120, 100, 30));
+
+        jLabel37.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel37.setText("KODE ABSEN");
+        jPanel7.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 90, 30));
+
+        jLabel40.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setText("7");
+        jPanel7.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, 20, 25));
+
+        jLabel96.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel96.setText("NO RECORD");
+        jPanel7.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 80, 30));
+
+        jLabel39.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel39.setText("1");
+        jPanel7.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 20, 23));
+
+        jLabel38.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel38.setText("TANGGAL");
+        jPanel7.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, 30));
+
+        jLabel46.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel46.setText("JAM MASUK");
+        jPanel7.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 80, 90, 30));
+
+        lbmasuk.setBackground(new java.awt.Color(51, 255, 51));
+        lbmasuk.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbmasuk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbmasuk.setText("00:00:00");
+        lbmasuk.setOpaque(true);
+        jPanel7.add(lbmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 80, 100, 30));
+
+        cbtgl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbtgl.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbtglItemStateChanged(evt);
+            }
+        });
+        cbtgl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbtglActionPerformed(evt);
+            }
+        });
+        cbtgl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cbtglKeyReleased(evt);
+            }
+        });
+        jPanel7.add(cbtgl, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 110, 30));
+
+        jButton3.setText("Cari");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, -1, 30));
+
+        jButton2.setText("Refresh");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 300, -1, 30));
+
+        jButton1.setText("Tampil Hari Ini");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 300, -1, 30));
+
+        jLabel48.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel7.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 990, 230));
+
+        jLabel98.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel98.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel98.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel98.setOpaque(true);
+        jPanel7.add(jLabel98, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 990, 240));
+
+        javax.swing.GroupLayout p_izinLayout = new javax.swing.GroupLayout(p_izin);
+        p_izin.setLayout(p_izinLayout);
+        p_izinLayout.setHorizontalGroup(
+            p_izinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        p_izinLayout.setVerticalGroup(
+            p_izinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_izinLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1019, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(p_izin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(p_izin, javax.swing.GroupLayout.PREFERRED_SIZE, 545, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void txtkodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtkodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtkodeActionPerformed
+
+    private void txtanipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtanipActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtanipActionPerformed
+
+    private void btnAbsen_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbsen_ubahActionPerformed
+        // TODO add your handling code here:
+
+        int i = tbpiket.getSelectedRow();
+        if(i== -1 | "".equals(txtkode.getText())){
+            JOptionPane.showMessageDialog(null, "Tidak ada data absen yang dipilih");
+
+            txtkode.setText("");
+
+        }
+        txtkode.setEnabled(false);
+        txtanip.setEnabled(true);
+        cb1.setEnabled(true);
+        txttgl.setEnabled(true);
+       
+        cb2.setEnabled(true);
+        cb3.setEnabled(true);
+        cb4.setEnabled(true);
+        cb5.setEnabled(true);
+        cb6.setEnabled(true);
+        cb7.setEnabled(true);
+        cb8.setEnabled(true);
+         lbmasuk.setEnabled(true);
+          lbkeluar.setEnabled(true);
+
+    }//GEN-LAST:event_btnAbsen_ubahActionPerformed
+
+    private void btnAbsen_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbsen_hapusActionPerformed
+        // TODO add your handling code here:
+
+        int row = tbpiket.getSelectedRow();
+        if(row!= -1){
+            String cell = tbpiket.getModel().getValueAt(row, 0).toString();
+            String nomer = tbpiket.getValueAt(row, 0).toString();
+
+            String sql = "DELETE FROM tbpiket where kode='"+nomer+"'";
+            String resetno="ALTER TABLE tbpiket DROP `kode`;";
+            String consecutivenumber="ALTER TABLE tbpiket ADD `kode` INT(11) NOT NULL AUTO_INCREMENT FIRST ,ADD KEY(`kode`);";
+
+            if (JOptionPane.showConfirmDialog(null, "HAPUS DATA INI..??"
+                ,"KONFIRMASI",JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.INFORMATION_MESSAGE)== JOptionPane.OK_OPTION) {
+
+            try {
+                conn.createStatement().execute(sql);
+                conn.createStatement().execute(resetno);
+                conn.createStatement().execute(consecutivenumber);
+
+                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+                loadTblPiket();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Klik Salah Satu Tabel");
+        }
+        }
+        /*
+        int i = tbabsen.getSelectedRow();
+        if(i== -1){
+            return;
+        }
+
+        // int no = Integer.parseInt(txtkode.getText());
+        ModelAbsensi moda = new ModelAbsensi();
+        moda.setKode(txtkode.getText());
+
+        int konfirmasiHapus = JOptionPane.showConfirmDialog(rootPane, "Apakah anda yakin akan menghapus data absensi tersebut?", "Hapus Pegawai", JOptionPane.YES_NO_OPTION);
+        if(konfirmasiHapus == JOptionPane.YES_OPTION){
+            try{
+                ManajemenAbsensi mana = new ManajemenAbsensi();
+                mana.hapusGuru(moda);
+                JOptionPane.showMessageDialog(rootPane, "Data berhasil dihapus", "Berhasil Menghapus Data",JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan menghapus data","Kesalahan Menghapus Data",JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(Administrator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally{
+                try {
+                    loadTblAbsen();
+
+                    txtkode.setText("");
+                    txtanip.setEnabled(false);
+                    txtanip.setText("");
+
+                    txtatanggal.setEnabled(false);
+                    txtatanggal.setDate(null);
+
+                    radaizin.setEnabled(false);
+                    radacuti.setEnabled(false);
+                    radaizin.setSelected(false);
+                    radacuti.setSelected(false);
+
+                    txtaketerangan.setEnabled(true);
+                    txtaketerangan.setText("");
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(Administrator
+                        .class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }*/
+    }//GEN-LAST:event_btnAbsen_hapusActionPerformed
+
+    private void btnAbsen_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbsen_simpanActionPerformed
+        // TODO add your handling code here:
+        String absen_kode = txtkode.getText();
+        String absen_nip = txtanip.getText();
+        String admin = txtidadm7.getText();
+        Date absen_tanggal = txttgl.getDate();
+        String nama = lblnamaguru.getText();
+        String jam1 = cb1.getSelectedItem().toString();
+        String jam2 = cb2.getSelectedItem().toString();
+        String jam3 = cb3.getSelectedItem().toString();
+        String jam4 = cb4.getSelectedItem().toString();
+        String jam5 = cb5.getSelectedItem().toString();
+        String jam6 = cb6.getSelectedItem().toString();
+        String jam7 = cb7.getSelectedItem().toString();
+        String jam8 = cb8.getSelectedItem().toString();
+        String masuk = lbmasuk.getText();
+        String keluar = lbkeluar.getText();
+//        String absen_izin = "";
+//
+//        if(jenis_absen.getSelection().equals(radacuti.getModel())){
+//            absen_izin = "Cuti";
+//        }
+//        else if(jenis_absen.getSelection().equals(radaizin.getModel())){
+//            absen_izin = "Izin";
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Harap isi semua field");
+//        }
+
+
+
+        if( "".equals(absen_nip) | txttgl.getDate()== null){
+            JOptionPane.showMessageDialog(null, "Harap isi semua field");
+        }else{
+
+            int confirmSimpan = JOptionPane.showConfirmDialog(null,"Apakah anda data tersebut sudah benar?","Mengimput data",JOptionPane.YES_NO_OPTION );
+            if (confirmSimpan == JOptionPane.YES_OPTION){
+
+                ModelPiket moda = new ModelPiket();
+                moda.setKode(absen_kode);
+                moda.setNip_absen(absen_nip);
+                moda.setNama(nama);
+                moda.setJadwal1(jam1);
+                moda.setJadwal2(jam2);
+                moda.setJadwal3(jam3);
+                moda.setJadwal4(jam4);
+                moda.setJadwal5(jam5);
+                moda.setJadwal6(jam6);
+                moda.setJadwal7(jam7);
+                moda.setJadwal8(jam8);
+                moda.setTanggal(absen_tanggal);
+                moda.setMasuk(masuk);
+                moda.setKeluar(keluar);
+                try{
+                    ManajemenPiketGuru mana = new ManajemenPiketGuru();
+                    if(mana.cekPiket(moda) == true){
+                        if(mana.cekDuplikasi(moda) == true){
+                            int ubahData = JOptionPane.showConfirmDialog(this,
+                                "Data tersebut sudah ada di database. \n"
+                                + "apakah anda yakin mau merubahnya?", "Ubah data absen",
+                                JOptionPane.YES_NO_CANCEL_OPTION);
+                            if(ubahData == JOptionPane.YES_OPTION){
+                                try{
+                                    moda.setKode(txtkode.getText());
+                                    mana.ubahPiket(moda);
+                                    JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Data berhasil diubah",JOptionPane.INFORMATION_MESSAGE);
+                                }catch(SQLException ex){
+                                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan mengubah data","Kesalahan Mengubah data",JOptionPane.ERROR_MESSAGE);
+                                    Logger.getLogger(FormPiketGuru.class.getName()).log(Level.SEVERE, null, ex);
+                                }finally{
+                                    loadTblPiket();
+
+                                }
+
+                            }else if(ubahData == JOptionPane.NO_OPTION){
+
+                                txtanip.setEnabled(false);
+
+                                txttgl.setEnabled(false);
+                                txttgl.setDate(null);
+                                 cb1.setEnabled(false);
+                                 cb2.setEnabled(false);
+                                 cb2.setEnabled(false);
+                                 cb3.setEnabled(false);
+                                 cb4.setEnabled(false);
+                                 cb6.setEnabled(false);
+                                 cb7.setEnabled(false);
+                                 cb8.setEnabled(false);
+                                 cb5.setEnabled(false);
+                                 lbmasuk.setEnabled(false);
+                                 lbkeluar.setEnabled(false);
+                            }
+
+                        }else{
+                            try{
+                                mana.tambahPiket(moda);
+                                JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Data berhasil ditambah",JOptionPane.INFORMATION_MESSAGE);
+                            }catch(SQLException ex){
+                                JOptionPane.showMessageDialog(null, "Terjadi kesalahan menambahkan data","Kesalahan Menambah Data",JOptionPane.ERROR_MESSAGE);
+                                Logger.getLogger(FormPiketGuru.class.getName()).log(Level.SEVERE, null, ex);
+                            }finally{
+                                loadTblPiket();
+
+                                txtkode.setText("");
+                                txtkode.setEnabled(false);
+                                txtanip.setEnabled(false);
+                                txtanip.setText("");
+                                txtanip.requestFocus();
+
+                                txttgl.setEnabled(false);
+                                txttgl.setDate(null);
+                               
+                                cb1.setEnabled(false);
+                                cb1.setSelectedItem("");
+                                cb2.setEnabled(false);
+                                cb2.setSelectedItem("");
+                                cb3.setEnabled(false);
+                                cb3.setSelectedItem("");
+                                cb4.setEnabled(false);
+                                cb4.setSelectedItem("");
+                                cb5.setEnabled(false);
+                                cb5.setSelectedItem("");
+                                cb6.setEnabled(false);
+                                cb6.setSelectedItem("");
+                                cb7.setEnabled(false);
+                                cb7.setSelectedItem("");
+                                cb8.setEnabled(false);
+                                cb8.setSelectedItem("");
+                                lblnamaguru.setText("");
+                                lbmasuk.setText("");
+                                lbkeluar.setText("");
+                               
+                            }
+                        }
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Guru dengan nip "+moda.getNip_absen()+" tidak ditemukan","Tidak ditemukan",JOptionPane.ERROR_MESSAGE);
+                    }
+                }catch(SQLException ex){
+                    Logger.getLogger(FormPiketGuru.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_btnAbsen_simpanActionPerformed
+
+    private void txtcariabsenguruKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariabsenguruKeyReleased
+        // TODO add your handling code here:
+        TableRowSorter<TableModel>sorter= new TableRowSorter<TableModel>(((DefaultTableModel)tbpiket.getModel()));
+        sorter.setRowFilter(RowFilter.regexFilter(txtcariabsenguru.getText()));
+        tbpiket.setRowSorter(sorter);
+    }//GEN-LAST:event_txtcariabsenguruKeyReleased
+
+    private void tbpiketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbpiketMouseClicked
+        // TODO add your handling code here:
+
+        //ubah keadaan field-field menjadi tidak berfungsi
+        txtanip.setEnabled(false);
+        txttgl.setEnabled(false);
+        lblnamaguru.setEnabled(false);
+        lbmasuk.setEnabled(false);
+        lbkeluar.setEnabled(false);
+        cb1.setEnabled(false);
+        cb2.setEnabled(false);
+        cb3.setEnabled(false);
+        cb4.setEnabled(false);
+        cb5.setEnabled(false);
+        cb6.setEnabled(false);
+        cb7.setEnabled(false);
+        cb8.setEnabled(false);
+
+        //cek apakah salah satu baris sudah diklik
+        int i = tbpiket.getSelectedRow();
+        if(i== -1){
+            //tidak melakukan apa-apa
+            return;
+        }
+
+        /*
+        mengambil isi dari tabel yang di klik, lalu menampilkannya
+        * di field-field
+        */
+
+        String No_rec_absen = (tabelabsen.getValueAt(i, 0)).toString();
+        txtkode.setText(No_rec_absen);
+
+        Date tanggal = (Date)tabelabsen.getValueAt(i, 1);
+        txttgl.setDate(tanggal);
+
+        String nip = (String) tabelabsen.getValueAt(i, 2);
+        txtanip.setText(nip);
+        
+        String nama = (String) tabelabsen.getValueAt(i, 3);
+        lblnamaguru.setText(nama);
+        String jam1 = (String) tabelabsen.getValueAt(i, 4);
+        cb1.setSelectedItem(jam1);
+        String jam2 = (String) tabelabsen.getValueAt(i, 5);
+        cb2.setSelectedItem(jam2);
+        String jam3 = (String) tabelabsen.getValueAt(i, 6);
+        cb3.setSelectedItem(jam3);
+        String jam4 = (String) tabelabsen.getValueAt(i, 7);
+        cb4.setSelectedItem(jam4);
+        String jam5 = (String) tabelabsen.getValueAt(i, 8);
+        cb5.setSelectedItem(jam5);
+        String jam6 = (String) tabelabsen.getValueAt(i, 9);
+        cb6.setSelectedItem(jam6);
+        String jam7 = (String) tabelabsen.getValueAt(i, 10);
+        cb7.setSelectedItem(jam7);
+        String jam8 = (String) tabelabsen.getValueAt(i, 11);
+        cb8.setSelectedItem(jam8);
+        String masuk = (String) tabelabsen.getValueAt(i, 12);
+        lbmasuk.setText(masuk);
+        String keluar = (String) tabelabsen.getValueAt(i, 13);
+        lbkeluar.setText(jam8);
+    }//GEN-LAST:event_tbpiketMouseClicked
+
+    private void btnAbsen_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbsen_tambah1ActionPerformed
+        // TODO add your handling code here:  txtkode.setText("");
+        
+        txtkode.setText("");
+        txtkode.setEnabled(false);
+        txtkode.setText("");
+        txtkode.requestFocus();
+
+        txtanip.setText("");
+        txtanip.setEnabled(true);
+        txtanip.setText("");
+        lblnamaguru.setText("");
+        txttgl.setEnabled(true);
+        txttgl.setDate(null);
+        
+        cb1.setEnabled(true);
+        cb1.setSelectedItem("-");
+        cb2.setEnabled(true);
+        cb2.setSelectedItem("-");
+        cb3.setEnabled(true);
+        cb3.setSelectedItem("-");
+        cb4.setEnabled(true);
+        cb4.setSelectedItem("-");
+        cb5.setEnabled(true);
+         cb5.setSelectedItem("-");
+        cb6.setSelectedItem("-");
+        cb6.setEnabled(true);
+        cb7.setEnabled(true);
+        cb7.setSelectedItem("-");
+        cb8.setEnabled(true);
+        cb8.setSelectedItem("-");
+        lbmasuk.setEnabled(true);
+        lbmasuk.setText("00:00:00");
+        lbkeluar.setEnabled(true);
+        lbkeluar.setText("00:00:00");
+                 
+
+    }//GEN-LAST:event_btnAbsen_tambah1ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        ListGuru4 lp = new ListGuru4();
+        lp.piket = this;
+        //this.getParent().add(lp);
+
+        lp.setVisible(true);
+        lp.setResizable(false);
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void btnAbsen_hapus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbsen_hapus1ActionPerformed
+        // TODO add your handling code here:
+        txtkode.setText("");
+        txtanip.setText("");
+        txttgl.setDate(null);
+    
+                               
+                                 cb1.setEnabled(false);
+                                cb1.setSelectedItem("-Pilih-");
+                                cb2.setEnabled(false);
+                                 cb2.setSelectedItem("-Pilih-");
+                                  cb3.setEnabled(false);
+                                 cb3.setSelectedItem("-Pilih-");
+                                  cb4.setEnabled(false);
+                                 cb4.setSelectedItem("-Pilih-");
+                                  cb5.setEnabled(false);
+                                 cb5.setSelectedItem("-Pilih-");
+                                  cb6.setEnabled(false);
+                                 cb6.setSelectedItem("-Pilih-");
+                                  cb7.setEnabled(false);
+                                 cb7.setSelectedItem("-Pilih-");
+                                  cb8.setEnabled(false);
+                                 cb8.setSelectedItem("-Pilih-");
+                                lblnamaguru.setText("");
+                                lbmasuk.setText("");
+                                lbkeluar.setText("");
+    }//GEN-LAST:event_btnAbsen_hapus1ActionPerformed
+
+    private void cb1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb1ItemStateChanged
+        // TODO add your handling code here:
+        if(cb1.getSelectedIndex()>0){
+            tampilnamakelas1();
+        }
+    }//GEN-LAST:event_cb1ItemStateChanged
+
+    private void cb2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb2ItemStateChanged
+        // TODO add your handling code here:
+        if(cb2.getSelectedIndex()>0){
+            tampilnamakelas2();
+        }
+    }//GEN-LAST:event_cb2ItemStateChanged
+
+    private void cb3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb3ItemStateChanged
+        // TODO add your handling code here:
+        if(cb3.getSelectedIndex()>0){
+            tampilnamakelas3();
+        }
+    }//GEN-LAST:event_cb3ItemStateChanged
+
+    private void cb4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb4ItemStateChanged
+        // TODO add your handling code here:
+        if(cb4.getSelectedIndex()>0){
+            tampilnamakelas4();
+        }
+    }//GEN-LAST:event_cb4ItemStateChanged
+
+    private void cb5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb5ItemStateChanged
+        // TODO add your handling code here:
+        if(cb5.getSelectedIndex()>0){
+            tampilnamakelas5();
+        }
+    }//GEN-LAST:event_cb5ItemStateChanged
+
+    private void cb6ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb6ItemStateChanged
+        // TODO add your handling code here:
+        if(cb6.getSelectedIndex()>0){
+            tampilnamakelas6();
+        }
+    }//GEN-LAST:event_cb6ItemStateChanged
+
+    private void cb7ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb7ItemStateChanged
+        // TODO add your handling code here:
+        if(cb7.getSelectedIndex()>0){
+            tampilnamakelas7();
+        }
+    }//GEN-LAST:event_cb7ItemStateChanged
+
+    private void cb8ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb8ItemStateChanged
+        // TODO add your handling code here:
+        if(cb8.getSelectedIndex()>0){
+            tampilnamakelas8();
+        }
+    }//GEN-LAST:event_cb8ItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         try {
+             // TODO add your handling code here:
+             loadTblPiket();
+         } catch (SQLException ex) {
+             Logger.getLogger(FormPiketGuru.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         try {
+             // TODO add your handling code here:
+             loadTblPiketAll();
+         } catch (SQLException ex) {
+             Logger.getLogger(FormPiketGuru.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cbtglItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbtglItemStateChanged
+        // TODO add your handling code here:
+        if(cbtgl.getSelectedIndex()>0){
+            tampiltanggal();
+          
+        } 
+       
+    }//GEN-LAST:event_cbtglItemStateChanged
+
+    private void cbtglKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbtglKeyReleased
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_cbtglKeyReleased
+
+    private void txtcariabsenguruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcariabsenguruActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcariabsenguruActionPerformed
+
+    private void cbtglActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtglActionPerformed
+        // TODO add your handling code here:
+        
+       
+    }//GEN-LAST:event_cbtglActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        TableRowSorter<TableModel>sorter= new TableRowSorter<TableModel>(((DefaultTableModel)tbpiket.getModel()));
+        sorter.setRowFilter(RowFilter.regexFilter(cbtgl.getSelectedItem().toString()));
+        tbpiket.setRowSorter(sorter);
+        
+         
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbsen_hapus;
+    private javax.swing.JButton btnAbsen_hapus1;
+    private javax.swing.JButton btnAbsen_simpan;
+    private javax.swing.JButton btnAbsen_tambah1;
+    private javax.swing.JButton btnAbsen_ubah;
+    private javax.swing.JComboBox<String> cb1;
+    private javax.swing.JComboBox<String> cb2;
+    private javax.swing.JComboBox<String> cb3;
+    private javax.swing.JComboBox<String> cb4;
+    private javax.swing.JComboBox<String> cb5;
+    private javax.swing.JComboBox<String> cb6;
+    private javax.swing.JComboBox<String> cb7;
+    private javax.swing.JComboBox<String> cb8;
+    private javax.swing.JComboBox<String> cbtgl;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel96;
+    private javax.swing.JLabel jLabel98;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lbkeluar;
+    private javax.swing.JLabel lblnamaguru;
+    private javax.swing.JLabel lbmasuk;
+    private javax.swing.JPanel p_izin;
+    private javax.swing.JTable tbpiket;
+    private javax.swing.JTextField txtanip;
+    private javax.swing.JTextField txtcariabsenguru;
+    private javax.swing.JLabel txtidadm7;
+    private javax.swing.JTextField txtkode;
+    private javax.swing.JLabel txtnamaadm7;
+    private com.toedter.calendar.JDateChooser txttgl;
+    // End of variables declaration//GEN-END:variables
+public void absentengah(){
+    headerabsen();
+           DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+            center.setHorizontalAlignment(SwingConstants.CENTER);
+             tbpiket.getColumnModel().getColumn(0).setCellRenderer(center);
+             //tbabsen.getTableHeader().getColumnModel().getColumn(0).setHeaderRenderer(center);
+              tbpiket.getColumnModel().getColumn(1).setCellRenderer(center);
+              
+         tbpiket.getColumnModel().getColumn(2).setCellRenderer(center);
+        // tbabsen.getTableHeader().getColumnModel().getColumn(2).setHeaderRenderer(center);
+        tbpiket.getColumnModel().getColumn(3).setCellRenderer(center);
+      //  tbabsen.getTableHeader().getColumnModel().getColumn(3).setHeaderRenderer(center);
+        tbpiket.getColumnModel().getColumn(4).setCellRenderer(center);
+      //  tbabsen.getTableHeader().getColumnModel().getColumn(4).setHeaderRenderer(center);
+        tbpiket.getColumnModel().getColumn(5).setCellRenderer(center);
+       // tbabsen.getTableHeader().getColumnModel().getColumn(5).setHeaderRenderer(center);
+        tbpiket.getColumnModel().getColumn(6).setCellRenderer(center);
+       // tbabsen.getTableHeader().getColumnModel().getColumn(6).setHeaderRenderer(center);
+         tbpiket.getColumnModel().getColumn(7).setCellRenderer(center);
+       //  tbabsen.getTableHeader().getColumnModel().getColumn(7).setHeaderRenderer(center);
+          tbpiket.getColumnModel().getColumn(8).setCellRenderer(center);
+       //  tbabsen.getTableHeader().getColumnModel().getColumn(7).setHeaderRenderer(center);
+           tbpiket.getColumnModel().getColumn(9).setCellRenderer(center);
+       //  tbabsen.getTableHeader().getColumnModel().getColumn(7).setHeaderRenderer(center);
+            tbpiket.getColumnModel().getColumn(10).setCellRenderer(center);
+             tbpiket.getColumnModel().getColumn(11).setCellRenderer(center);
+             tbpiket.getColumnModel().getColumn(12).setCellRenderer(center);
+             tbpiket.getColumnModel().getColumn(13).setCellRenderer(center);
+       //  tbabsen.getTableHeader().getColumnModel().getColumn(7).setHeaderRenderer(center);
+//      tbabsen.getColumnModel().getColumn(11).setCellRenderer(center);
+//       //  tbabsen.getTableHeader().getColumnModel().getColumn(7).setHeaderRenderer(center);
+     }
+
+     public void headerabsen(){
+          Font font = new Font("Times New Roman", Font.BOLD, 12);
+           JTableHeader header =  tbpiket.getTableHeader();
+         header.setFont(font); 
+         header.setBackground(Color.CYAN);
+      }
+     
+      protected void nama(){
+           
+        try {
+            String sql = "SELECT * FROM admin WHERE id_admin='"+txtidadm7.getText()+"' AND  nama_admin='"+txtnamaadm7.getText()+"'";
+            Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            if (hasil.next()) {
+               txtidadm7.setText(hasil.getString("id_admin"));
+              
+               txtnamaadm7.setText(hasil.getString("nama_admin"));
+            }
+           } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Di Panggil"+e);
+        }
+       }
+      
+     
+        public void isicombokelas1() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb1.removeAllItems();
+        cb1.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb1.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas1() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb1.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb1.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+    
+      public void isicombokelas2() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb2.removeAllItems();
+        cb2.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb2.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas2() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb2.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb2.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+    
+      public void isicombokelas3() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb3.removeAllItems();
+        cb3.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb3.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas3() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb3.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb3.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+//    
+      public void isicombokelas4() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb4.removeAllItems();
+        cb4.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb4.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas4() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb4.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb4.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+    
+      public void isicombokelas5() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb5.removeAllItems();
+        cb5.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb5.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas5() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb5.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb5.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+    
+      public void isicombokelas6() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb6.removeAllItems();
+        cb6.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb6.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas6() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb6.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb6.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+    
+      public void isicombokelas7() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb7.removeAllItems();
+        cb7.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb7.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas7() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb7.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb7.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+    
+      public void isicombokelas8() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cb8.removeAllItems();
+        cb8.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombokelas()) {
+            cb8.addItem(b.getKelas());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampilnamakelas8() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cb8.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.getnamakelas(cb8.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+    
+     public void isicombotanggal() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        cbtgl.removeAllItems();
+        cbtgl.addItem("-Pilih-");
+        for (ModelPiket b : model.isicombotanggal()) {
+            cbtgl.addItem(b.getCari_tanggal().toString());
+        }
+    }
+    
+    //method ini akan digunakan untuk menampilkan kode petugas dan lain-lain berdasarkan inputan combo nama petugas
+    public void tampiltanggal() {
+         ManajemenPiketGuru model = new ManajemenPiketGuru();
+        if (cbtgl.getSelectedIndex() != 0) {
+            for (ModelPiket b : model.gettanggal(cbtgl.getSelectedItem().toString())) {
+              
+               
+            }
+        }
+    }  
+}

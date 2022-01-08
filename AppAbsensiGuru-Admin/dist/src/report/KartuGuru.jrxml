@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="KartuGuru" pageWidth="570" pageHeight="242" columnWidth="530" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6d612493-19cf-4f37-941b-59466526ecfb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="5d68c3fc-9940-4795-93ab-118d368b6f06"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbguru.`nip_absen` AS tbguru_nip_absen,
+     tbguru.`nip` AS tbguru_nip,
+     tbguru.`nama` AS tbguru_nama,
+     tbguru.`jabatan` AS tbguru_jabatan,
+     tbguru.`foto` AS tbguru_foto,
+     tbguru.`id_admin` AS tbguru_id_admin,
+     tbjabatan.`kode_jabatan` AS tbjabatan_kode_jabatan,
+     tbjabatan.`nama_jabatan` AS tbjabatan_nama_jabatan,
+     tbguru.`tlp` AS tbguru_tlp
+FROM
+     `tbguru` tbguru INNER JOIN `tbjabatan` tbjabatan ON tbguru.`jabatan` = tbjabatan.`kode_jabatan`]]>
+	</queryString>
+	<field name="tbguru_nip_absen" class="java.lang.String"/>
+	<field name="tbguru_nip" class="java.lang.String"/>
+	<field name="tbguru_nama" class="java.lang.String"/>
+	<field name="tbguru_jabatan" class="java.lang.String"/>
+	<field name="tbguru_foto" class="java.lang.String"/>
+	<field name="tbguru_id_admin" class="java.lang.String"/>
+	<field name="tbjabatan_kode_jabatan" class="java.lang.String"/>
+	<field name="tbjabatan_nama_jabatan" class="java.lang.String"/>
+	<field name="tbguru_tlp" class="java.lang.String"/>
+	<detail>
+		<band height="202" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="2" y="10" width="59" height="51" uuid="64225272-137b-4dd0-817f-5a27221e745b"/>
+				<imageExpression><![CDATA["C:\\Users\\Anjar\\Documents\\NetBeansProjects\\AppAbsensiGuru-Admin\\src\\images\\20180716093058.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="292" y="2" width="180" height="0" uuid="7cec6e0f-a600-4e31-980b-4f4a7724102a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-1" y="-1" width="528" height="1" uuid="b784cf68-d5a2-4c27-9ef6-80608508394a"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="-1" y="201" width="529" height="1" uuid="e7636ee0-30cf-4870-8083-c57c0b46d6ec"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="-2" y="-1" width="1" height="202" uuid="f8a17768-be7c-4fa1-ac49-fb82b1448bc4"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="61" y="10" width="196" height="21" uuid="93d61766-0256-4f90-a819-228eeaae97f2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SMK PGRI 28 JAKARTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="31" width="196" height="14" uuid="6db93e89-9b0f-49b4-a822-b2d021ffa12b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jl. Raya Condet Pasar Rebo Jakarta Timur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="45" width="164" height="15" uuid="27418f3c-94a0-4392-a0e9-1be42a897e78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telp : (021) 8414029]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="76" width="266" height="19" uuid="ebd8e282-9517-44e6-9fa6-d4ab57e82fcf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Kartu Tanda Pengenal SMK PGRI 28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="106" width="50" height="20" uuid="be73554c-4f72-4403-9933-edb34e9de6f7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ NIP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="146" width="50" height="20" uuid="25044586-d4a9-428c-a0d7-0d4c8c29104d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JABATAN ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="166" width="50" height="20" uuid="cf66c147-8ffe-42dd-81c5-4a41108622c5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="126" width="10" height="20" uuid="fa76632e-61b5-4ac0-b0a7-f098defb5384"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="106" width="10" height="20" uuid="6bd30a74-9686-416e-b4de-0a6866424cfc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="146" width="10" height="20" uuid="73532d0c-f59c-4415-82e4-a9d775bbfded"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="166" width="10" height="20" uuid="32da5792-5aff-4cd9-a20e-eb584541c42e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="166" width="123" height="20" uuid="b2432951-12cb-4dbb-bfee-2b3933c51d16"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbguru_tlp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="106" width="100" height="20" uuid="daecf4c0-7f14-4d51-b0f2-190694bd0950"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbguru_nip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="126" width="118" height="20" uuid="2d4487e1-3568-47db-90a3-785ddb76dc86"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbguru_nama}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="106" width="71" height="78" uuid="e644699d-2afa-44e0-8b3a-bbcb59433213"/>
+				<box>
+					<pen lineStyle="Dashed"/>
+					<topPen lineWidth="0.5" lineStyle="Dashed"/>
+					<leftPen lineWidth="0.5" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
+					<rightPen lineWidth="0.5" lineStyle="Dashed"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Foto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="148" width="196" height="16" uuid="67d3aeec-96ca-483a-a292-b02ed3f7e9f2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Note :]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="311" y="17" width="180" height="133" uuid="03727205-c61d-40b7-9db5-08d0091e4a8c"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage( new com.google.zxing.qrcode.QRCodeWriter().encode( $F{tbguru_nip_absen},  com.google.zxing.BarcodeFormat.QR_CODE,450,450))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="83" y="126" width="50" height="20" uuid="6af38873-8ca8-48a6-94bb-10a2b8b46df6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="164" width="196" height="28" uuid="8d414073-13cf-4d17-bef6-39130e341e80"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[1. Kartu Ini Milik Guru Dan Staff  SMK PGRI 28 Jakarta 
+2. Kartu Ini Harap Dipergunakan Untuk Keperluan Presensi	]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="267" y="0" width="2" height="196" uuid="493258f9-7757-407c-b457-3f27df736cb5"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="3" y="61" width="263" height="10" uuid="19dca990-21b0-47ad-a898-6f6b36011fb8"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="146" width="123" height="20" uuid="8fbc98b1-dd04-4340-9bed-df8be9349bf2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbjabatan_nama_jabatan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="272" y="2" width="259" height="15" uuid="42cf40ce-a927-4af2-89c5-7bbe9a14cb48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SCAN QR-CODE PRESENSI SMK PGRI 28 JAKARTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="192" width="261" height="8" uuid="2ae81c3b-dbdd-4594-b15c-6e5da9c21f15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="6" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Copyright PGRI 28 Jakarta ]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="531" y="0" width="1" height="201" uuid="56b44387-f3e5-4170-b993-51462f52ea0a"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
